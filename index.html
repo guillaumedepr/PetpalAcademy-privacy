@@ -226,44 +226,6 @@
         font-weight: 900;
       }
 
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 22px;
-      }
-
-      .button,
-      .button-secondary {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 48px;
-        padding: 0 18px;
-        border-radius: 16px;
-        font-size: 1rem;
-        font-weight: 900;
-        transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
-      }
-
-      .button {
-        color: #fff;
-        background: linear-gradient(135deg, var(--primary), #826dff);
-        box-shadow: 0 16px 28px rgba(107, 78, 255, 0.24);
-      }
-
-      .button-secondary {
-        color: var(--text-primary);
-        background: rgba(255, 255, 255, 0.92);
-        border: 1px solid rgba(45, 52, 54, 0.08);
-      }
-
-      .button:hover,
-      .button-secondary:hover {
-        text-decoration: none;
-        transform: translateY(-1px);
-      }
-
       .sheet {
         margin-top: 24px;
         padding: 30px;
@@ -273,10 +235,6 @@
       }
 
       .sheet-header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 18px;
-        align-items: end;
         padding-bottom: 22px;
         border-bottom: 1px solid rgba(45, 52, 54, 0.08);
       }
@@ -291,45 +249,6 @@
         margin: 8px 0 0;
         color: var(--text-secondary);
         font-weight: 700;
-      }
-
-      .language-note {
-        padding: 12px 16px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, rgba(87, 190, 232, 0.12), rgba(255, 142, 78, 0.12));
-        color: var(--text-primary);
-        font-size: 0.95rem;
-        font-weight: 800;
-        text-align: right;
-      }
-
-      .facts {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-        margin-top: 22px;
-      }
-
-      .fact {
-        padding: 18px;
-        border-radius: 22px;
-        background: linear-gradient(180deg, rgba(240, 244, 248, 0.8), rgba(255, 255, 255, 0.96));
-        border: 1px solid rgba(45, 52, 54, 0.07);
-      }
-
-      .fact-label {
-        color: var(--text-secondary);
-        font-size: 0.88rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-      }
-
-      .fact-value {
-        margin-top: 8px;
-        font-size: 1.04rem;
-        font-weight: 900;
-        line-height: 1.4;
       }
 
       .policy-grid {
@@ -386,28 +305,14 @@
         line-height: 1.6;
       }
 
-      footer {
-        margin-top: 18px;
-        text-align: center;
-        color: var(--text-secondary);
-        font-size: 0.94rem;
-        font-weight: 700;
-      }
-
       @media (max-width: 920px) {
         .hero,
-        .sheet-header,
         .contact-card {
           grid-template-columns: 1fr;
         }
 
-        .policy-grid,
-        .facts {
+        .policy-grid {
           grid-template-columns: 1fr;
-        }
-
-        .language-note {
-          text-align: left;
         }
       }
 
@@ -465,11 +370,6 @@
             <div class="meta-chip"><span id="audienceLabel"></span> <strong id="audienceValue"></strong></div>
             <div class="meta-chip"><span id="availabilityLabel"></span> <strong id="availabilityValue"></strong></div>
           </div>
-
-          <div class="hero-actions">
-            <a class="button" href="mailto:support@petpalacademy.com" id="contactButton"></a>
-            <a class="button-secondary" href="https://petpalacademy.com/" target="_blank" rel="noreferrer" id="siteButton"></a>
-          </div>
         </div>
       </section>
 
@@ -478,22 +378,6 @@
           <div>
             <h2 id="sheetTitle"></h2>
             <p id="sheetIntro"></p>
-          </div>
-          <div class="language-note" id="languageNote"></div>
-        </div>
-
-        <div class="facts">
-          <div class="fact">
-            <div class="fact-label" id="factAppLabel"></div>
-            <div class="fact-value" id="factAppValue"></div>
-          </div>
-          <div class="fact">
-            <div class="fact-label" id="factDataLabel"></div>
-            <div class="fact-value" id="factDataValue"></div>
-          </div>
-          <div class="fact">
-            <div class="fact-label" id="factControlLabel"></div>
-            <div class="fact-value" id="factControlValue"></div>
           </div>
         </div>
 
@@ -504,11 +388,8 @@
             <h3 id="contactTitle"></h3>
             <p id="contactDescription"></p>
           </div>
-          <a class="button" href="mailto:support@petpalacademy.com" id="contactCta"></a>
         </div>
       </section>
-
-      <footer id="footerNote"></footer>
     </main>
 
     <script>
@@ -518,25 +399,16 @@
           heroEyebrow: "PetPal Academy",
           heroTitle: "Privacy Policy",
           heroLead:
-            "PetPal Academy is a parent-led learning app where families create a pet teacher, explore guided activities, and manage a subscription. This policy explains what we collect, how we use it, and the choices available to parents and caregivers.",
+            "This policy explains how PetPal Academy collects, uses, shares, and stores personal data when parents and caregivers use the app.",
           effectiveLabel: "Effective date",
           effectiveDate: "March 20, 2026",
           audienceLabel: "For",
           audienceValue: "Parents and caregivers",
           availabilityLabel: "Language",
           availabilityValue: "English and Dutch",
-          contactButton: "Email support",
-          siteButton: "Open PetPal Academy",
-          sheetTitle: "A familiar PetPal view of privacy",
+          sheetTitle: "Privacy Policy",
           sheetIntro:
-            "This page follows the same bright, parent-friendly tone as the app while keeping the policy easy to read on mobile and desktop.",
-          languageNote: "Switch between English and Dutch at any time.",
-          factAppLabel: "App focus",
-          factAppValue: "Parent-led learning with a pet teacher",
-          factDataLabel: "Main data we use",
-          factDataValue: "Account, pet photos, generated assets, learning progress",
-          factControlLabel: "Your control",
-          factControlValue: "Delete your account in the app or contact support",
+            "This notice applies to personal data collected through the PetPal Academy app and related support communications.",
           sections: [
             {
               title: "Information We Collect",
@@ -549,9 +421,14 @@
                 "We use this information to create and personalize your child's pet teacher, provide activities and progress features, sync your account across devices, process subscriptions, maintain security, and improve the app. Uploaded pet images may be sent to our AI and media processing providers to generate the pet teacher assets shown in the app."
             },
             {
-              title: "Services We Use",
+              title: "Service Providers and Recipients",
               body:
-                "We use Supabase for authentication and database storage, Cloudflare R2 for pet image and generated asset storage, RevenueCat for subscription state, Apple for in-app purchases and Sign in with Apple, Google for Sign in with Google, OpenAI and Nano Banana for AI generation features, and Replicate for image processing tasks such as background removal when enabled."
+                "We may share personal data with service providers and partners that help us operate the app, such as providers for authentication, hosting, cloud storage, subscription management, sign-in services, AI generation, and image processing. We require these providers to process personal data on our behalf only where needed to deliver the service or comply with legal obligations."
+            },
+            {
+              title: "International Transfers",
+              body:
+                "Some of our service providers may process personal data outside your country, including outside the European Economic Area. Where required, we rely on appropriate safeguards for these transfers, such as contractual protections approved under applicable data protection law."
             },
             {
               title: "Children's Privacy",
@@ -571,35 +448,23 @@
           ],
           contactTitle: "Questions or requests?",
           contactDescription:
-            "For privacy questions, access requests, or deletion requests, contact us at support@petpalacademy.com.",
-          contactCta: "Contact privacy support",
-          footerNote:
-            "Use this page at https://petpalacademy.com/privacy and reference the same URL in App Store Connect."
+            "For privacy questions, access requests, or deletion requests, contact us at support@petpalacademy.com."
         },
         nl: {
           pageTitle: "PetPal Academy Privacybeleid",
           heroEyebrow: "PetPal Academy",
           heroTitle: "Privacybeleid",
           heroLead:
-            "PetPal Academy is een door ouders begeleide leerapp waarin gezinnen een huisdierleraar maken, begeleide activiteiten ontdekken en een abonnement beheren. Dit beleid legt uit welke gegevens we verzamelen, hoe we die gebruiken en welke keuzes ouders en verzorgers hebben.",
+            "Dit beleid legt uit hoe PetPal Academy persoonsgegevens verzamelt, gebruikt, deelt en bewaart wanneer ouders en verzorgers de app gebruiken.",
           effectiveLabel: "Ingangsdatum",
           effectiveDate: "20 maart 2026",
           audienceLabel: "Voor",
           audienceValue: "Ouders en verzorgers",
           availabilityLabel: "Taal",
           availabilityValue: "Engels en Nederlands",
-          contactButton: "E-mail support",
-          siteButton: "Open PetPal Academy",
-          sheetTitle: "Een vertrouwde PetPal-weergave van privacy",
+          sheetTitle: "Privacybeleid",
           sheetIntro:
-            "Deze pagina volgt dezelfde heldere, oudervriendelijke uitstraling als de app en blijft tegelijk makkelijk leesbaar op mobiel en desktop.",
-          languageNote: "Wissel op elk moment tussen Engels en Nederlands.",
-          factAppLabel: "Focus van de app",
-          factAppValue: "Door ouders begeleid leren met een huisdierleraar",
-          factDataLabel: "Belangrijkste gegevens",
-          factDataValue: "Account, huisdierfoto's, gegenereerde assets, leerprogressie",
-          factControlLabel: "Uw controle",
-          factControlValue: "Verwijder uw account in de app of neem contact op",
+            "Deze kennisgeving is van toepassing op persoonsgegevens die via de PetPal Academy-app en gerelateerde supportcommunicatie worden verzameld.",
           sections: [
             {
               title: "Welke gegevens we verzamelen",
@@ -612,9 +477,14 @@
                 "We gebruiken deze informatie om de huisdierleraar van uw kind te maken en te personaliseren, activiteiten en voortgangsfuncties aan te bieden, uw account tussen apparaten te synchroniseren, abonnementen te verwerken, de beveiliging te behouden en de app te verbeteren. Geüploade huisdierfoto's kunnen naar onze AI- en mediaverwerkingspartners worden gestuurd om de in de app getoonde huisdierleraar-assets te genereren."
             },
             {
-              title: "Diensten die we gebruiken",
+              title: "Dienstverleners en ontvangers",
               body:
-                "We gebruiken Supabase voor authenticatie en databaseopslag, Cloudflare R2 voor opslag van huisdierfoto's en gegenereerde assets, RevenueCat voor de abonnementsstatus, Apple voor in-app aankopen en Sign in with Apple, Google voor Sign in with Google, OpenAI en Nano Banana voor AI-functies en Replicate voor beeldverwerkingstaken zoals achtergrondverwijdering wanneer die functie is ingeschakeld."
+                "We kunnen persoonsgegevens delen met dienstverleners en partners die ons helpen de app te laten werken, zoals aanbieders voor authenticatie, hosting, cloudopslag, abonnementsbeheer, inlogdiensten, AI-generatie en beeldverwerking. We verplichten deze partijen om persoonsgegevens alleen namens ons te verwerken wanneer dat nodig is om de dienst te leveren of om aan wettelijke verplichtingen te voldoen."
+            },
+            {
+              title: "Internationale doorgiften",
+              body:
+                "Sommige van onze dienstverleners kunnen persoonsgegevens verwerken buiten uw land, waaronder buiten de Europese Economische Ruimte. Waar vereist vertrouwen wij voor deze doorgiften op passende waarborgen, zoals contractuele beschermingsmaatregelen die onder het toepasselijke gegevensbeschermingsrecht zijn goedgekeurd."
             },
             {
               title: "Privacy van kinderen",
@@ -634,10 +504,7 @@
           ],
           contactTitle: "Vragen of verzoeken?",
           contactDescription:
-            "Voor privacyvragen, verzoeken om inzage of verwijderingsverzoeken kunt u contact met ons opnemen via support@petpalacademy.com.",
-          contactCta: "Contacteer privacy support",
-          footerNote:
-            "Gebruik deze pagina op https://petpalacademy.com/privacy en gebruik dezelfde URL in App Store Connect."
+            "Voor privacyvragen, verzoeken om inzage of verwijderingsverzoeken kunt u contact met ons opnemen via support@petpalacademy.com."
         }
       };
 
@@ -675,21 +542,10 @@
         setText("audienceValue", selected.audienceValue);
         setText("availabilityLabel", selected.availabilityLabel);
         setText("availabilityValue", selected.availabilityValue);
-        setText("contactButton", selected.contactButton);
-        setText("siteButton", selected.siteButton);
         setText("sheetTitle", selected.sheetTitle);
         setText("sheetIntro", selected.sheetIntro);
-        setText("languageNote", selected.languageNote);
-        setText("factAppLabel", selected.factAppLabel);
-        setText("factAppValue", selected.factAppValue);
-        setText("factDataLabel", selected.factDataLabel);
-        setText("factDataValue", selected.factDataValue);
-        setText("factControlLabel", selected.factControlLabel);
-        setText("factControlValue", selected.factControlValue);
         setText("contactTitle", selected.contactTitle);
         setText("contactDescription", selected.contactDescription);
-        setText("contactCta", selected.contactCta);
-        setText("footerNote", selected.footerNote);
 
         renderSections(selected.sections);
 
