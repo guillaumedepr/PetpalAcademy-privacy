@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="PetPal Academy turns a child's real pet into a playful learning companion."
+    />
+    <title>PetPal Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --blue: #57bee8;
+        --blue-deep: #2e9fcd;
+        --sun: #ffc96f;
+        --orange: #ff8e4e;
+        --mint: #85d7b3;
+        --ink: #2d3436;
+        --muted: #636e72;
+        --line: rgba(45, 52, 54, 0.08);
+        --shadow: 0 24px 52px rgba(67, 98, 122, 0.14);
+        --surface: rgba(255, 255, 255, 0.82);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Nunito", "Avenir Next", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(87, 190, 232, 0.24), transparent 28%),
+          radial-gradient(circle at 90% 14%, rgba(255, 201, 111, 0.22), transparent 20%),
+          radial-gradient(circle at 12% 82%, rgba(133, 215, 179, 0.18), transparent 18%),
+          linear-gradient(180deg, #e0f7fa 0%, #fdf3d0 100%);
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        z-index: 0;
+        border-radius: 999px;
+        pointer-events: none;
+        filter: blur(12px);
+        opacity: 0.5;
+      }
+
+      body::before {
+        top: 86px;
+        right: 6vw;
+        width: 180px;
+        height: 180px;
+        background: rgba(87, 190, 232, 0.22);
+      }
+
+      body::after {
+        left: 6vw;
+        bottom: 80px;
+        width: 220px;
+        height: 220px;
+        background: rgba(255, 142, 78, 0.18);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 56px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .brandbar,
+      .langbar {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.68);
+        border: 1px solid rgba(255, 255, 255, 0.92);
+        box-shadow: 0 12px 28px rgba(47, 74, 95, 0.12);
+        backdrop-filter: blur(10px);
+      }
+
+      .brandbar a,
+      .langbar button {
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.95rem;
+        font-weight: 800;
+        padding: 10px 16px;
+        border-radius: 999px;
+      }
+
+      .langbar button {
+        cursor: pointer;
+      }
+
+      .brandbar a.active,
+      .langbar button[aria-pressed="true"] {
+        color: #fff;
+        background: linear-gradient(135deg, var(--blue), #7ad2f1);
+        box-shadow: 0 8px 18px rgba(87, 190, 232, 0.28);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        gap: 22px;
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        border-radius: 34px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .hero-copy {
+        padding: 30px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        color: var(--blue-deep);
+        background: rgba(87, 190, 232, 0.13);
+        font-size: 0.82rem;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--orange), var(--sun));
+      }
+
+      h1 {
+        margin: 18px 0 14px;
+        font-size: clamp(2.6rem, 5.6vw, 5rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+      }
+
+      .lead {
+        margin: 0;
+        max-width: 680px;
+        color: var(--muted);
+        font-size: 1.14rem;
+        line-height: 1.7;
+        font-weight: 700;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 24px;
+      }
+
+      .button,
+      .button-muted {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        padding: 0 20px;
+        border-radius: 18px;
+        font-size: 1rem;
+        font-weight: 900;
+      }
+
+      .button {
+        color: #fff;
+        background: linear-gradient(135deg, var(--blue), #7ad2f1);
+        box-shadow: 0 16px 28px rgba(87, 190, 232, 0.24);
+      }
+
+      .button-muted {
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid var(--line);
+      }
+
+      .hero-meta {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .meta {
+        padding: 16px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(45, 52, 54, 0.06);
+      }
+
+      .meta-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .meta-value {
+        margin-top: 8px;
+        font-size: 1.02rem;
+        font-weight: 900;
+        line-height: 1.35;
+      }
+
+      .hero-visual {
+        padding: 22px;
+        display: grid;
+        gap: 16px;
+      }
+
+      .logo-stage {
+        display: grid;
+        place-items: center;
+        min-height: 290px;
+        padding: 18px;
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at top, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.76)),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 251, 255, 0.84));
+      }
+
+      .logo-stage img {
+        width: min(100%, 280px);
+        height: auto;
+        display: block;
+      }
+
+      .feature-stack {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .pill {
+        padding: 16px;
+        border-radius: 20px;
+        color: var(--ink);
+        font-weight: 900;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+
+      .pill.story {
+        background: linear-gradient(135deg, rgba(255, 201, 111, 0.45), rgba(255, 255, 255, 0.82));
+      }
+
+      .pill.play {
+        background: linear-gradient(135deg, rgba(87, 190, 232, 0.34), rgba(255, 255, 255, 0.82));
+      }
+
+      .pill.create {
+        background: linear-gradient(135deg, rgba(255, 142, 78, 0.32), rgba(255, 255, 255, 0.82));
+      }
+
+      .pill.explore {
+        background: linear-gradient(135deg, rgba(133, 215, 179, 0.34), rgba(255, 255, 255, 0.82));
+      }
+
+      .section {
+        margin-top: 22px;
+      }
+
+      .section-head {
+        margin-bottom: 16px;
+        padding: 0 4px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: 2rem;
+        letter-spacing: -0.04em;
+      }
+
+      .section-head p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 1.02rem;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .grid-3,
+      .grid-4,
+      .grid-2 {
+        display: grid;
+        gap: 16px;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 22px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(255, 255, 255, 0.92);
+        box-shadow: 0 18px 38px rgba(51, 72, 92, 0.08);
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 1.22rem;
+        line-height: 1.2;
+      }
+
+      .card p,
+      .card ul {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.7;
+        font-weight: 700;
+      }
+
+      .card ul {
+        padding-left: 20px;
+      }
+
+      .card li + li {
+        margin-top: 8px;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 14px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 62px minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+      }
+
+      .step-badge {
+        display: grid;
+        place-items: center;
+        width: 62px;
+        height: 62px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, rgba(87, 190, 232, 0.18), rgba(255, 201, 111, 0.28));
+        color: var(--blue-deep);
+        font-size: 1.1rem;
+        font-weight: 900;
+      }
+
+      .mini-note {
+        margin-top: 16px;
+        padding: 18px 20px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(87, 190, 232, 0.14), rgba(133, 215, 179, 0.12));
+        border: 1px solid rgba(87, 190, 232, 0.16);
+        color: var(--ink);
+        font-weight: 800;
+        line-height: 1.6;
+      }
+
+      footer {
+        margin-top: 20px;
+        padding: 22px 24px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.92);
+        box-shadow: 0 18px 38px rgba(51, 72, 92, 0.08);
+      }
+
+      .footer-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px 20px;
+      }
+
+      .footer-copy {
+        color: var(--muted);
+        font-size: 0.98rem;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .footer-links {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .footer-links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 42px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: rgba(87, 190, 232, 0.12);
+        color: var(--blue-deep);
+        font-weight: 900;
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .grid-3,
+        .grid-4,
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-meta,
+        .feature-stack {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          width: min(100% - 20px, 1180px);
+          padding-top: 16px;
+          padding-bottom: 40px;
+        }
+
+        .topbar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .brandbar,
+        .langbar {
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .hero-copy,
+        .hero-visual,
+        .card,
+        footer {
+          padding: 20px;
+        }
+
+        .hero-meta,
+        .feature-stack {
+          grid-template-columns: 1fr;
+        }
+
+        .step {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <nav class="brandbar" aria-label="Site navigation">
+          <a class="active" href="./landing.html" id="navHome"></a>
+          <a href="https://privacy.petpalacademy.com/" id="navPrivacy"></a>
+          <a href="https://privacy.petpalacademy.com/terms.html" id="navTerms"></a>
+        </nav>
+        <div class="langbar" aria-label="Language switcher">
+          <button type="button" data-lang="en" aria-pressed="true">English</button>
+          <button type="button" data-lang="nl" aria-pressed="false">Nederlands</button>
+        </div>
+      </div>
+
+      <section class="hero">
+        <div class="panel hero-copy">
+          <div class="eyebrow" id="eyebrow"></div>
+          <h1 id="heroTitle"></h1>
+          <p class="lead" id="heroLead"></p>
+
+          <div class="hero-actions">
+            <a class="button" href="https://privacy.petpalacademy.com/" id="primaryAction"></a>
+            <a class="button-muted" href="#features" id="secondaryAction"></a>
+          </div>
+
+          <div class="hero-meta">
+            <div class="meta">
+              <div class="meta-label" id="meta1Label"></div>
+              <div class="meta-value" id="meta1Value"></div>
+            </div>
+            <div class="meta">
+              <div class="meta-label" id="meta2Label"></div>
+              <div class="meta-value" id="meta2Value"></div>
+            </div>
+            <div class="meta">
+              <div class="meta-label" id="meta3Label"></div>
+              <div class="meta-value" id="meta3Value"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel hero-visual">
+          <div class="logo-stage">
+            <img
+              src="./assets/petpal_academy_logo_no_background.png"
+              alt="PetPal Academy logo"
+            />
+          </div>
+          <div class="feature-stack">
+            <div class="pill story" id="pill1"></div>
+            <div class="pill play" id="pill2"></div>
+            <div class="pill create" id="pill3"></div>
+            <div class="pill explore" id="pill4"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="section-head">
+          <h2 id="featuresTitle"></h2>
+          <p id="featuresLead"></p>
+        </div>
+        <div class="grid-4" id="featureGrid"></div>
+      </section>
+
+      <section class="section">
+        <div class="grid-2">
+          <div>
+            <div class="section-head">
+              <h2 id="journeyTitle"></h2>
+              <p id="journeyLead"></p>
+            </div>
+            <div class="card timeline" id="journeySteps"></div>
+          </div>
+          <div>
+            <div class="section-head">
+              <h2 id="parentsTitle"></h2>
+              <p id="parentsLead"></p>
+            </div>
+            <div class="grid-3" id="parentGrid"></div>
+            <div class="mini-note" id="parentNote"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2 id="whyTitle"></h2>
+          <p id="whyLead"></p>
+        </div>
+        <div class="grid-3" id="whyGrid"></div>
+      </section>
+
+      <footer>
+        <div class="footer-row">
+          <div class="footer-copy" id="footerCopy"></div>
+          <div class="footer-links">
+            <a href="https://privacy.petpalacademy.com/" id="footerPrivacy"></a>
+            <a href="https://privacy.petpalacademy.com/terms.html" id="footerTerms"></a>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      const content = {
+        en: {
+          title: "PetPal Academy",
+          navHome: "Home",
+          navPrivacy: "Privacy",
+          navTerms: "Terms",
+          eyebrow: "Parent-led learning for kids",
+          heroTitle: "Turn a real pet into a child's favorite teacher.",
+          heroLead:
+            "PetPal Academy turns a child's real pet into a playful learning companion for stories, games, creative activities, and world exploration, with parent controls built in from the start.",
+          primaryAction: "Read the privacy policy",
+          secondaryAction: "Explore the experience",
+          meta1Label: "Core idea",
+          meta1Value: "A personalized pet teacher made from your child's real pet.",
+          meta2Label: "For families",
+          meta2Value: "Built for parents, caregivers, and young learners.",
+          meta3Label: "Design goal",
+          meta3Value: "Safe, simple, joyful learning sessions that feel familiar fast.",
+          pill1: "Stories that star your pet",
+          pill2: "Play-and-learn mini games",
+          pill3: "Color, create, and save favorites",
+          pill4: "Explore countries, culture, and fun facts",
+          featuresTitle: "What children can do",
+          featuresLead:
+            "The experience is designed around short, bright, low-friction sessions that feel magical without becoming chaotic.",
+          features: [
+            {
+              title: "Read stories together",
+              body:
+                "Children move through pet-led stories with short sentences, friendly pacing, and a format that fits early reading."
+            },
+            {
+              title: "Play and learn",
+              body:
+                "Mini games support counting, memory, phonics, and simple problem solving while keeping the pet at the center."
+            },
+            {
+              title: "Color and create",
+              body:
+                "Creative activities turn the child's own pet into something they can color, keep, and revisit."
+            },
+            {
+              title: "Explore the world",
+              body:
+                "Kids can jump into geography, culture, and vocabulary through lightweight world discovery moments."
+            }
+          ],
+          journeyTitle: "A typical session",
+          journeyLead:
+            "The product works best in short 5 to 10 minute loops that feel rewarding without overload.",
+          journey: [
+            {
+              number: "1",
+              title: "Your pet says hello",
+              body: "A child opens the app and sees a familiar pet teacher ready to guide the next activity."
+            },
+            {
+              number: "2",
+              title: "A story or activity starts fast",
+              body: "There is always one obvious next action, so children can begin without reading long instructions."
+            },
+            {
+              number: "3",
+              title: "Progress feels playful",
+              body: "Badges, stamps, and celebration moments reinforce progress in a light, encouraging way."
+            }
+          ],
+          parentsTitle: "Made for parents too",
+          parentsLead:
+            "The parent experience is meant to reduce stress, not add more setup and admin work.",
+          parents: [
+            {
+              title: "Protected parent layer",
+              body:
+                "Sensitive settings and subscriptions sit behind a parent gate so young children stay in the right flow."
+            },
+            {
+              title: "Progress at a glance",
+              body:
+                "Parents can follow reading time, completed activities, and learning momentum without digging through the app."
+            },
+            {
+              title: "Privacy-aware design",
+              body:
+                "The app is built around account control, child-focused use, and clear legal pages for privacy and terms."
+            }
+          ],
+          parentNote:
+            "The current legal pages live on a separate privacy domain, which is useful for App Store compliance and public legal access.",
+          whyTitle: "Why the concept works",
+          whyLead:
+            "The app combines emotional familiarity with structure. A child's own pet creates instant attention, while the product design keeps sessions safe and easy to repeat.",
+          why: [
+            {
+              title: "Emotionally sticky",
+              body:
+                "Children immediately recognize their own pet, which makes learning feel personal instead of generic."
+            },
+            {
+              title: "Short-session friendly",
+              body:
+                "The experience is shaped for quick wins, making it easier for families to fit into real routines."
+            },
+            {
+              title: "Brand-ready foundation",
+              body:
+                "A homepage can sit on the main domain while legal documents remain on the privacy subdomain."
+            }
+          ],
+          footerCopy:
+            "Recommended structure: main landing page on petpalacademy.com or www.petpalacademy.com, legal pages on privacy.petpalacademy.com.",
+          footerPrivacy: "Privacy Policy",
+          footerTerms: "Terms of Service"
+        },
+        nl: {
+          title: "PetPal Academy",
+          navHome: "Home",
+          navPrivacy: "Privacy",
+          navTerms: "Voorwaarden",
+          eyebrow: "Door ouders begeleid leren",
+          heroTitle: "Maak van een echt huisdier de favoriete leraar van een kind.",
+          heroLead:
+            "PetPal Academy maakt van het echte huisdier van een kind een speelse leermaat voor verhalen, spelletjes, creatieve activiteiten en wereldverkenning, met oudercontroles vanaf het begin ingebouwd.",
+          primaryAction: "Lees het privacybeleid",
+          secondaryAction: "Ontdek de ervaring",
+          meta1Label: "Kernidee",
+          meta1Value: "Een persoonlijke huisdierleraar gemaakt op basis van het echte huisdier van een kind.",
+          meta2Label: "Voor gezinnen",
+          meta2Value: "Ontworpen voor ouders, verzorgers en jonge kinderen.",
+          meta3Label: "Doel van het ontwerp",
+          meta3Value: "Veilige, simpele en vrolijke leersessies die snel vertrouwd aanvoelen.",
+          pill1: "Verhalen met je huisdier in de hoofdrol",
+          pill2: "Spelenderwijs leren",
+          pill3: "Kleuren, maken en bewaren",
+          pill4: "Landen, cultuur en weetjes ontdekken",
+          featuresTitle: "Wat kinderen kunnen doen",
+          featuresLead:
+            "De ervaring is opgebouwd rond korte, heldere en speelse sessies die magisch aanvoelen zonder chaotisch te worden.",
+          features: [
+            {
+              title: "Samen verhalen lezen",
+              body:
+                "Kinderen volgen verhalen met hun huisdier in de hoofdrol, met korte zinnen, vriendelijk tempo en een vorm die past bij beginnende lezers."
+            },
+            {
+              title: "Spelen en leren",
+              body:
+                "Minigames ondersteunen tellen, geheugen, klanken en eenvoudig probleemoplossend denken terwijl het huisdier centraal blijft staan."
+            },
+            {
+              title: "Kleuren en creëren",
+              body:
+                "Creatieve activiteiten maken van het eigen huisdier van het kind iets dat het kan inkleuren, bewaren en opnieuw bekijken."
+            },
+            {
+              title: "De wereld ontdekken",
+              body:
+                "Kinderen kunnen aardrijkskunde, cultuur en woordenschat verkennen via lichte en speelse ontdekmomenten."
+            }
+          ],
+          journeyTitle: "Een typische sessie",
+          journeyLead:
+            "Het product werkt het best in korte lussen van 5 tot 10 minuten die belonend voelen zonder te overladen.",
+          journey: [
+            {
+              number: "1",
+              title: "Je huisdier zegt hallo",
+              body: "Een kind opent de app en ziet een vertrouwde huisdierleraar klaarstaan voor de volgende activiteit."
+            },
+            {
+              number: "2",
+              title: "Een verhaal of activiteit start meteen",
+              body: "Er is altijd een duidelijke volgende stap, zodat kinderen niet eerst lange instructies hoeven te lezen."
+            },
+            {
+              number: "3",
+              title: "Vooruitgang voelt speels",
+              body: "Badges, stempels en kleine viermomenten maken vooruitgang licht en motiverend."
+            }
+          ],
+          parentsTitle: "Ook gemaakt voor ouders",
+          parentsLead:
+            "De ouderervaring is bedoeld om stress te verlagen, niet om nog meer setup en beheer toe te voegen.",
+          parents: [
+            {
+              title: "Beschermde ouderlaag",
+              body:
+                "Gevoelige instellingen en abonnementen zitten achter een ouderpoort zodat jonge kinderen in de juiste flow blijven."
+            },
+            {
+              title: "Voortgang in één oogopslag",
+              body:
+                "Ouders kunnen leestijd, afgeronde activiteiten en leermomentum volgen zonder diep in de app te moeten zoeken."
+            },
+            {
+              title: "Privacybewust ontwerp",
+              body:
+                "De app is opgebouwd rond accountcontrole, kindgericht gebruik en duidelijke juridische pagina's voor privacy en voorwaarden."
+            }
+          ],
+          parentNote:
+            "De huidige juridische pagina's staan op een aparte privacy-subdomein, wat nuttig is voor App Store-compliance en publieke juridische toegang.",
+          whyTitle: "Waarom dit concept werkt",
+          whyLead:
+            "De app combineert emotionele herkenning met structuur. Het eigen huisdier van een kind trekt meteen de aandacht, terwijl het productontwerp sessies veilig en makkelijk herhaalbaar houdt.",
+          why: [
+            {
+              title: "Emotioneel sterk",
+              body:
+                "Kinderen herkennen hun eigen huisdier onmiddellijk, waardoor leren persoonlijk aanvoelt in plaats van generiek."
+            },
+            {
+              title: "Geschikt voor korte sessies",
+              body:
+                "De ervaring is gebouwd voor snelle succesmomenten, zodat gezinnen ze makkelijker in hun echte routine kunnen inpassen."
+            },
+            {
+              title: "Klaar voor een hoofdsite",
+              body:
+                "Een homepage kan op het hoofddomein staan terwijl juridische documenten op het privacy-subdomein blijven."
+            }
+          ],
+          footerCopy:
+            "Aanbevolen structuur: hoofdsite op petpalacademy.com of www.petpalacademy.com, juridische pagina's op privacy.petpalacademy.com.",
+          footerPrivacy: "Privacybeleid",
+          footerTerms: "Gebruiksvoorwaarden"
+        }
+      };
+
+      const featureGrid = document.getElementById("featureGrid");
+      const journeySteps = document.getElementById("journeySteps");
+      const parentGrid = document.getElementById("parentGrid");
+      const whyGrid = document.getElementById("whyGrid");
+      const buttons = document.querySelectorAll("[data-lang]");
+
+      function setText(id, value) {
+        document.getElementById(id).textContent = value;
+      }
+
+      function renderCards(target, items) {
+        target.innerHTML = items
+          .map(
+            (item) => `
+              <article class="card">
+                <h3>${item.title}</h3>
+                <p>${item.body}</p>
+              </article>
+            `
+          )
+          .join("");
+      }
+
+      function renderJourney(items) {
+        journeySteps.innerHTML = items
+          .map(
+            (item) => `
+              <div class="step">
+                <div class="step-badge">${item.number}</div>
+                <div>
+                  <h3>${item.title}</h3>
+                  <p>${item.body}</p>
+                </div>
+              </div>
+            `
+          )
+          .join("");
+      }
+
+      function setLanguage(lang) {
+        const selected = content[lang];
+        document.documentElement.lang = lang;
+        document.title = selected.title;
+
+        setText("navHome", selected.navHome);
+        setText("navPrivacy", selected.navPrivacy);
+        setText("navTerms", selected.navTerms);
+        setText("eyebrow", selected.eyebrow);
+        setText("heroTitle", selected.heroTitle);
+        setText("heroLead", selected.heroLead);
+        setText("primaryAction", selected.primaryAction);
+        setText("secondaryAction", selected.secondaryAction);
+        setText("meta1Label", selected.meta1Label);
+        setText("meta1Value", selected.meta1Value);
+        setText("meta2Label", selected.meta2Label);
+        setText("meta2Value", selected.meta2Value);
+        setText("meta3Label", selected.meta3Label);
+        setText("meta3Value", selected.meta3Value);
+        setText("pill1", selected.pill1);
+        setText("pill2", selected.pill2);
+        setText("pill3", selected.pill3);
+        setText("pill4", selected.pill4);
+        setText("featuresTitle", selected.featuresTitle);
+        setText("featuresLead", selected.featuresLead);
+        setText("journeyTitle", selected.journeyTitle);
+        setText("journeyLead", selected.journeyLead);
+        setText("parentsTitle", selected.parentsTitle);
+        setText("parentsLead", selected.parentsLead);
+        setText("parentNote", selected.parentNote);
+        setText("whyTitle", selected.whyTitle);
+        setText("whyLead", selected.whyLead);
+        setText("footerCopy", selected.footerCopy);
+        setText("footerPrivacy", selected.footerPrivacy);
+        setText("footerTerms", selected.footerTerms);
+
+        renderCards(featureGrid, selected.features);
+        renderJourney(selected.journey);
+        renderCards(parentGrid, selected.parents);
+        renderCards(whyGrid, selected.why);
+
+        buttons.forEach((button) => {
+          const isActive = button.dataset.lang === lang;
+          button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.lang));
+      });
+
+      const initialLanguage = navigator.language && navigator.language.toLowerCase().startsWith("nl")
+        ? "nl"
+        : "en";
+
+      setLanguage(initialLanguage);
+    </script>
+  </body>
+</html>
